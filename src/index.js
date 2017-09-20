@@ -1,6 +1,5 @@
 // @flow
 import { relative, normalize, dirname, extname } from 'path'
-import flowSyntax from 'babel-plugin-syntax-flow'
 import * as t from 'babel-types'
 import template from 'babel-template'
 import { removeFlowComment, addFlowComment } from 'babel-add-flow-comments'
@@ -52,57 +51,61 @@ function getParentDirName(path: string) {
   return upperCamelCase(parentPath[parentPath.length - 1])
 }
 
+// TODO ignore all syntax error
+function inheritsOpts() {
+  return {
+    manipulateOptions(opts: Object, parserOpts: Object) {
+      parserOpts.plugins.push('flow')
+      parserOpts.plugins.push('objectRestSpread')
+    },
+  }
+}
+
 export default () => {
   return {
-    inherits: flowSyntax,
+    inherits: inheritsOpts,
     name: 's2s-state-root',
     visitor: {
-      Program: {
-        exit(programPath: Path, state: State) {
-          const { file } = state
-          removeFlowComment(file.ast.comments)
-          const { input, output, globOptions = {} } = state.opts
+      Program(programPath: Path, state: State) {
+        const { file } = state
+        removeFlowComment(file.ast.comments)
+        const { input, output, globOptions = {} } = state.opts
 
-          if (!input) {
-            throw new Error('require input option')
-          }
+        if (!input) {
+          throw new Error('require input option')
+        }
 
-          if (!output) {
-            throw new Error('require output option')
-          }
+        if (!output) {
+          throw new Error('require output option')
+        }
 
-          const files = globby.sync(input, globOptions)
+        const files = globby.sync(input, globOptions)
 
-          const imports = files
-            .map(f => ({
-              source: getImportPath(output, f),
-              name: getParentDirName(f),
-            }))
-            .map(({ name, source }) => {
-              const im = t.importDeclaration(
-                [t.importSpecifier(t.identifier(name), t.identifier('State'))],
-                t.stringLiteral(source)
-              )
-              // $FlowFixMe
-              im.importKind = 'type'
-              return im
-            })
-
-          const props = files
-            .map(getParentDirName)
-            .map(x => t.identifier(x))
-            .map(name =>
-              t.objectTypeProperty(name, t.genericTypeAnnotation(name))
+        const imports = files
+          .map(f => ({
+            source: getImportPath(output, f),
+            name: getParentDirName(f),
+          }))
+          .map(({ name, source }) => {
+            const im = t.importDeclaration(
+              [t.importSpecifier(t.identifier(name), t.identifier('State'))],
+              t.stringLiteral(source)
             )
+            // $FlowFixMe
+            im.importKind = 'type'
+            return im
+          })
 
-          programPath.node.body = [
-            ...imports,
-            t.noop(),
-            createObjectType(props),
-          ]
+        const props = files
+          .map(getParentDirName)
+          .map(x => t.identifier(x))
+          .map(name =>
+            t.objectTypeProperty(name, t.genericTypeAnnotation(name))
+          )
 
-          addFlowComment(programPath)
-        },
+        programPath.node.body = [...imports, t.noop(), createObjectType(props)]
+
+        addFlowComment(programPath)
       },
     },
   }

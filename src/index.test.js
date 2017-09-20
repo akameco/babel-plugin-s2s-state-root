@@ -17,6 +17,12 @@ pluginTester({
       title: 'options',
       code: `// @flow`,
     },
+    {
+      title: 'no parse',
+      code: `// @flow
+      const state = { ...state, a: 1}
+      `,
+    },
   ],
 })
 
