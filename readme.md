@@ -23,10 +23,13 @@ $ npm install --save-dev babel-plugin-s2s-state-root
 
 ```
 // @flow
-import type { Action as AppAction } from "../app/stateTypes";
-import type { Action as BobAction } from "../bob/stateTypes";
+import type { State as App } from "../../__fixtures__/app/reducer";
+import type { State as Bob } from "../../__fixtures__/bob/reducer";
 
-export type Action = AppAction | BobAction;
+export type State = {
+  App: App;
+  Bob: Bob;
+};
 ```
 
 
@@ -35,7 +38,7 @@ export type Action = AppAction | BobAction;
 ```
 {
   ['s2s-state-root', {
-    input: 'containers/**/stateTypes.js',
+    input: 'containers/**/reducer.js',
     output: 'types/state.js',
     globOptions: {}
   }]
@@ -56,7 +59,7 @@ required: true
 
 outputh path.
 
-#### blobOptions
+#### globOptions
 
 See https://github.com/isaacs/node-glob#options
 
