@@ -11,7 +11,7 @@ pluginTester({
   plugin,
   snapshot: true,
   babelOptions: { filename },
-  pluginOptions: { input: 'src/__fixtures__/**/*.js', output },
+  pluginOptions: { input: '__fixtures__/**/*.js', output },
   tests: [
     {
       title: 'options',
@@ -35,7 +35,7 @@ pluginTester({
 pluginTester({
   plugin,
   babelOptions: { filename },
-  pluginOptions: { input: 'src/__fixtures__/**/*.js' },
+  pluginOptions: { input: '__fixtures__/**/*.js' },
   tests: [
     {
       title: 'error',
@@ -50,7 +50,7 @@ pluginTester({
   babelOptions: { filename },
   snapshot: true,
   pluginOptions: {
-    input: '**/reducer.js',
+    input: '../**/reducer.js',
     output,
     globOptions: { cwd: __dirname },
   },

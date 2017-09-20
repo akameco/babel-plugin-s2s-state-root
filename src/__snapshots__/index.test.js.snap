@@ -8,8 +8,8 @@ exports[`glob options 1`] = `
 
 // @flow
 // show options
-import type { State as App } from \\"../../__fixtures__/app/reducer\\";
-import type { State as Bob } from \\"../../__fixtures__/bob/reducer\\";
+import type { State as App } from \\"../../../__fixtures__/app/reducer\\";
+import type { State as Bob } from \\"../../../__fixtures__/bob/reducer\\";
 
 export type State = {
   App: App;
@@ -25,8 +25,8 @@ exports[`options 1`] = `
       ↓ ↓ ↓ ↓ ↓ ↓
 
 // @flow
-import type { State as App } from \\"../__fixtures__/app/reducer\\";
-import type { State as Bob } from \\"../__fixtures__/bob/reducer\\";
+import type { State as App } from \\"../../__fixtures__/app/reducer\\";
+import type { State as Bob } from \\"../../__fixtures__/bob/reducer\\";
 
 export type State = {
   App: App;
