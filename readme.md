@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/akameco/babel-plugin-s2s-state-root.svg?branch=master)](https://travis-ci.org/akameco/babel-plugin-s2s-state-root)
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-> compose state types
+> s2s plugin: compose state types
 
 
 ## Install
@@ -62,6 +62,13 @@ outputh path.
 #### globOptions
 
 See https://github.com/isaacs/node-glob#options
+
+## Related
+- [**akameco/s2s**<br>Source to Source](https://github.com/akameco/s2s)
+- [**akameco/babel-plugin-s2s-action-root**<br>compose flow + redux action types](https://github.com/akameco/babel-plugin-s2s-action-root)
+- [**akameco/babel-plugin-s2s-reducer-root**<br>compose redux reducer](https://github.com/akameco/babel-plugin-s2s-reducer-root)
+- [**akameco/babel-plugin-s2s-action-types**<br>generate redux action types](https://github.com/akameco/babel-plugin-s2s-action-types)
+- [**akameco/babel-plugin-s2s-action-creater**<br>generate redux action creater](https://github.com/akameco/babel-plugin-s2s-action-creater)
 
 ## License
 
